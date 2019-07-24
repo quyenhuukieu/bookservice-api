@@ -1,0 +1,6 @@
+com\qk\bookservice\MainApplication.class
+com\qk\bookservice\model\Customer.class
+com\qk\bookservice\controller\MainController.class
+com\qk\bookservice\config\SwaggerConfig.class
+com\qk\bookservice\dao\CustomerRepository.class
+com\qk\bookservice\model\Book.class
