@@ -17,7 +17,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)  
           .select()                                  
           .apis(RequestHandlerSelectors.basePackage("com.qk.bookservice.controller"))              
-          .paths(PathSelectors.ant("/*"))                          
+          .paths(PathSelectors.any())                          
           .build();                                           
     }
 }
