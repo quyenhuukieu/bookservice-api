@@ -10,28 +10,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.qk.bookservice.dao.BookRepository;
 import com.qk.bookservice.dao.CustomerRepository;
+import com.qk.bookservice.model.Book;
 import com.qk.bookservice.model.Customer;
 
 @RestController
 @CrossOrigin(origins="*")
+@RequestMapping("/api")
 public class MainController {
 	@Autowired
 	private CustomerRepository customerRepo;
 	
+	@Autowired
+	private BookRepository bookRepo;
+	
 	private final Logger LOG = LoggerFactory.getLogger(MainController.class);
 	
-	@GetMapping("/api/greeting")
+	@GetMapping("/greeting")
 	public String hello() {
 		LOG.info("Inside hello from Book Service api");
 		return "Hello there now from Book Service api";
 	}
 	
-	@PostMapping("/save")
-	public String process(){
+	@GetMapping("/book/findall")
+	public String findAllBooks(){
+		String result = "";
+		
+		for(Book book : bookRepo.findAll()){
+			result += book.toString() + "<br>";
+		}
+		
+		return result;
+	}
+	
+	@PostMapping("/customer/save")
+	public String processCustomer(){
 		// save a single Customer
 //		customerRepo.save(new Customer("Quyen", "Smith"));
 		
@@ -43,8 +61,8 @@ public class MainController {
 	}
 	
 	
-	@GetMapping("/findall")
-	public String findAll(){
+	@GetMapping("/customer/findall")
+	public String findAllCustomers(){
 		String result = "";
 		
 		for(Customer cust : customerRepo.findAll()){
@@ -54,15 +72,15 @@ public class MainController {
 		return result;
 	}
 	
-	@GetMapping("/findbyid")
-	public String findById(@RequestParam("id") long id){
+	@GetMapping("/customer/findbyid")
+	public String findCustomerById(@RequestParam("id") long id){
 		String result = "";
 		result = customerRepo.findById(id).toString();
 		return result;
 	}
 	
-	@GetMapping("/findbylastname")
-	public String fetchDataByLastName(@RequestParam("lastname") String lastName){
+	@GetMapping("/customer/findbylastname")
+	public String fetchCustomerDataByLastName(@RequestParam("lastname") String lastName){
 		String result = "";
 		
 		for(Customer cust: customerRepo.findByLastName(lastName)){
