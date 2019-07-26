@@ -21,34 +21,23 @@ import com.qk.bookservice.model.Customer;
 
 @RestController
 @CrossOrigin(origins="*")
-@RequestMapping("/api")
-public class MainController {
+@RequestMapping("/api/customer")
+public class CustomerController {
 	@Autowired
 	private CustomerRepository customerRepo;
 	
 	@Autowired
 	private BookRepository bookRepo;
 	
-	private final Logger LOG = LoggerFactory.getLogger(MainController.class);
+	private final Logger LOG = LoggerFactory.getLogger(CustomerController.class);
 	
 	@GetMapping("/greeting")
 	public String hello() {
-		LOG.info("Inside hello from Book Service api");
-		return "Hello there now from Book Service api";
+		LOG.info("Inside hello from Customer Controller");
+		return "Hello there now from Customer Controller";
 	}
 	
-	@GetMapping("/book/findall")
-	public String findAllBooks(){
-		String result = "";
-		
-		for(Book book : bookRepo.findAll()){
-			result += book.toString() + "<br>";
-		}
-		
-		return result;
-	}
-	
-	@PostMapping("/customer/save")
+	@PostMapping("/save")
 	public String processCustomer(){
 		// save a single Customer
 //		customerRepo.save(new Customer("Quyen", "Smith"));
@@ -61,7 +50,7 @@ public class MainController {
 	}
 	
 	
-	@GetMapping("/customer/findall")
+	@GetMapping("/findall")
 	public String findAllCustomers(){
 		String result = "";
 		
@@ -72,14 +61,14 @@ public class MainController {
 		return result;
 	}
 	
-	@GetMapping("/customer/findbyid")
+	@GetMapping("/findbyid")
 	public String findCustomerById(@RequestParam("id") long id){
 		String result = "";
 		result = customerRepo.findById(id).toString();
 		return result;
 	}
 	
-	@GetMapping("/customer/findbylastname")
+	@GetMapping("/findbylastname")
 	public String fetchCustomerDataByLastName(@RequestParam("lastname") String lastName){
 		String result = "";
 		
